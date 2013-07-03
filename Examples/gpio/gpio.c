@@ -1,5 +1,5 @@
-#include "gpio.h"
-#include "display.h"
+#include <gpio.h>
+#include <display.h>
 
 const int OUTPUT = 22;
 const int INPUT = 21;

@@ -1,4 +1,4 @@
-#include "display.h"
+#include <display.h>
 
 int main(int argc,char* argv[]){
 	display_fill(0x0);
