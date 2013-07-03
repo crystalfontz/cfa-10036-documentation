@@ -72,6 +72,7 @@ void display_fill(unsigned char byte) {
   * @param {char*} string The string to print to the display
  **/
 void display_writebuffer(int row, int col, char *string) {
+	row*=8;
 	int i;
 	int length,index;
 	length = strlen(string);
@@ -737,9 +738,9 @@ unsigned char font[][8] = {
 	0b00100010,
 	0b00000010,
 	0b00000010,
-	0b00000010,
+	0b00111010,
 	0b00100010,
-	0b00001100,
+	0b00011100,
 	0b00000000},
 	{// Glyph H
 	0b00100010,
