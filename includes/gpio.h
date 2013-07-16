@@ -18,7 +18,7 @@
 #include <stdbool.h>
 
 #define DEBUG false
-#define PINCOUNT 128
+#define PINCOUNT 96
 
 
 /**
