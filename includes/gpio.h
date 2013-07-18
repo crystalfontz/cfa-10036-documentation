@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <gpio_pindefs.h>
 
 #define DEBUG false
 #define PINCOUNT 96
