@@ -19,7 +19,7 @@
 #include <gpio_pindefs.h>
 
 #define DEBUG false
-#define PINCOUNT 96
+#define PINCOUNT 126
 
 
 /**

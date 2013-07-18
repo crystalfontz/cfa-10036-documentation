@@ -24,8 +24,8 @@
 #define COLS 16
 #endif
 
-unsigned char font[][8];
-unsigned char buffer[ROWS][COLS];
+unsigned char display_font[][8];
+unsigned char display_buffer[ROWS][COLS];
 
 /**
   * Copies the values of the local buffer into the system's framebuffer
@@ -39,11 +39,11 @@ void display_send(void) {
 	fp2 = fopen("/dev/fb1","wb+");
 	if(fp!=NULL){
 		//       printf("Size of buffer is %d \n", sizeof(buffer));
-		fwrite((unsigned char *)&buffer,1,sizeof(buffer),fp);
+		fwrite((unsigned char *)&display_buffer,1,sizeof(display_buffer),fp);
 		fclose(fp);
 	}
 	if(fp2!=NULL){
-		fwrite((unsigned char *)&buffer,1,sizeof(buffer),fp2);
+		fwrite((unsigned char *)&display_buffer,1,sizeof(display_buffer),fp2);
 		fclose(fp2);
 	}
 }
@@ -58,7 +58,7 @@ void display_fill(unsigned char byte) {
 	int i,j;
 	for(i=0;i<ROWS;i++) {
 		for(j=0;j<COLS;j++) {
-		buffer[i][j] = byte;
+		display_buffer[i][j] = byte;
 		}
 	}
 }
@@ -71,7 +71,7 @@ void display_fill(unsigned char byte) {
   * @param {int} col The column to start writing at
   * @param {char*} string The string to print to the display
  **/
-void display_writebuffer(int row, int col, char *string) {
+void display_writebuffer(int col, int row, char *string) {
 	row*=8;
 	int i;
 	int length,index;
@@ -81,7 +81,7 @@ void display_writebuffer(int row, int col, char *string) {
 			index = *string;
 			for(i=0;i < 8;i++) {
 				if(((row+i) < ROWS) && (col < COLS)) {
-					buffer[row+i][col] = font[index][i];
+					display_buffer[row+i][col] = display_font[index][i];
 				} 
 			}
 			string++;
@@ -93,7 +93,7 @@ void display_writebuffer(int row, int col, char *string) {
 /**
   * The FontTbl for the display
  **/
-unsigned char font[][8] = {
+unsigned char display_font[][8] = {
 	{// Glyph  
 	0b00000000,
 	0b00000000,
