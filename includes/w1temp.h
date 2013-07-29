@@ -16,7 +16,7 @@ void w1temp_init();
 void w1temp_close();
 int w1temp_getcount();
 double w1temp_gettemp_celsius(int);
-inline double w1temp_gettemp_farenheit(int);
+inline double w1temp_gettemp_fahrenheit(int);
 inline char* w1temp_getid(int);
 
 inline char* w1temp_getid(int index){
@@ -85,7 +85,7 @@ double w1temp_gettemp_celsius(int index){
 	return -1;
 }
 
-inline double w1temp_gettemp_farenheit(int index){
+inline double w1temp_gettemp_fahrenheit(int index){
 	return (w1temp_gettemp_celsius(index)*1.8)+32;
 }
 

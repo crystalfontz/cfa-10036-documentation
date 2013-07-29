@@ -55,6 +55,8 @@ void cleanup(){
 
 int main(void){
 	w1temp_init();
+	init();
+	
 	loopall();
 	cleanup();
 	w1temp_close();
