@@ -13,7 +13,7 @@ void shift(int index){
 		buffer[1] = buffer[0];
 
 	buffer[0] = malloc(sizeof(char)*16);
-	sprintf(buffer[0],"Temp %i:%f",index,w1temp_gettemp_farenheit(index));
+	sprintf(buffer[0],"Temp %i:%f",index,w1temp_get_temp_fahrenheit(index));
 
 }
 

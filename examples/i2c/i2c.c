@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
-#include "i2c-dev.h"
+#include <i2c.h>
 
 #define ADDRESS 0x2A
 #define DISPLAY_HIDE 0x02

@@ -1,1 +1,0 @@
-arm-none-linux-gnueabi-gcc display.c -o display

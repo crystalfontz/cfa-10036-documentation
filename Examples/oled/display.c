@@ -1,4 +1,5 @@
 #include <display.h>
+#include <stdlib.h>
 
 int main(int argc,char* argv[]){
 	display_fill(0x0);
@@ -14,4 +15,6 @@ int main(int argc,char* argv[]){
 
 	display_fill(0x0);
 	display_send();
+
+	return 0;
 }

@@ -4,7 +4,7 @@
 const int OUTPUT = 22;
 const int INPUT = 21;
 
-void main(int argc,char* argv[]){
+int main(int argc,char* argv[]){
 	gpio_init();
 	gpio_config(OUTPUT,1);
 	gpio_config(INPUT,0);
@@ -29,4 +29,6 @@ void main(int argc,char* argv[]){
 	display_send();
 	gpio_write(OUTPUT,0);
 	gpio_close();
+
+	return 0;
 }
