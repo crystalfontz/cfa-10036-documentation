@@ -33,7 +33,6 @@ int main(int argc, char *argv[])
     display_fill(0x0);
     display_send();
     gpio_write(OUTPUT, 0);
-    gpio_close();
 
     return 0;
 }
