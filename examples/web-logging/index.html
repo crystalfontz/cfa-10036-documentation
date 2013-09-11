@@ -1,0 +1,43 @@
+<html>
+	<head>
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+		<script src="time_log.json"></script>
+		<script src="freezer_log.json"></script>
+		<script src="fridge_log.json"></script>
+
+		<script type="text/javascript">
+			console.log(timeData);
+			console.log(fridgeData);
+			console.log(freezerData);
+
+
+			var googleDataArray = [];
+			var i;
+
+			googleDataArray.push(["Time","Fridge","Freezer"]);
+			for(i=0;i<timeData.length;i++){
+				timeDataElement = timeData[i];
+				fridgeDataElement = fridgeData[i];
+				freezerDataElement = freezerData[i];
+
+				googleDataArray.push([timeDataElement,fridgeDataElement,freezerDataElement]);
+			}
+
+			google.load("visualization", "1", {packages:["corechart"]});
+			google.setOnLoadCallback(drawChart);
+		
+			function drawChart() {
+				var data = google.visualization.arrayToDataTable(googleDataArray);
+				var options = {
+					title: 'CFA10036 Temperature Readings'
+				};
+
+				var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+				chart.draw(data, options);
+			}
+		</script>
+	</head>
+	<body>
+		<div id="chart_div" style="width: 900px; height: 500px;"></div>
+	</body>
+</html>
