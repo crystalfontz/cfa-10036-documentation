@@ -21,6 +21,6 @@
 
 int display_send();
 int display_fill(unsigned char byte);
-int display_write(int col, int row, char *string);
+int display_writebuffer(int col, int row, char *string);
 
 #endif

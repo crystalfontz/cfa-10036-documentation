@@ -4,8 +4,8 @@ CFLAGS=-Wall -I./includes/ -std=c99
 
 build: clean-lib ./libs/libcfa10036.a example-code
 
-./libs/libcfa10036.a: ./build/display.o ./build/gpio.o ./build/i2c.o ./build/dowtemp.o ./build/spi.o ./build/accel.o
-	$(AR) -cvq ./libs/libcfa10036.a ./build/display.o ./build/gpio.o ./build/i2c.o ./build/dowtemp.o ./build/spi.o ./build/accel.o
+./libs/libcfa10036.a: ./build/display.o ./build/gpio.o ./build/i2c.o ./build/w1temp.o ./build/spi.o ./build/accel.o
+	$(AR) -cvq ./libs/libcfa10036.a ./build/display.o ./build/gpio.o ./build/i2c.o ./build/w1temp.o ./build/spi.o ./build/accel.o
 	$(AR) -t ./libs/libcfa10036.a
 
 ./build/display.o:./src/display.c
@@ -17,8 +17,8 @@ build: clean-lib ./libs/libcfa10036.a example-code
 ./build/i2c.o:./src/i2c.c
 	$(CC) ./src/i2c.c -c -o ./build/i2c.o $(CFLAGS)
 
-./build/dowtemp.o:./src/dowtemp.c
-	$(CC) ./src/dowtemp.c -c -o ./build/dowtemp.o $(CFLAGS)
+./build/w1temp.o:./src/w1temp.c
+	$(CC) ./src/w1temp.c -c -o ./build/w1temp.o $(CFLAGS)
 
 ./build/spi.o:./src/spi.c
 	$(CC) ./src/spi.c -c -o ./build/spi.o $(CFLAGS)
@@ -29,7 +29,7 @@ build: clean-lib ./libs/libcfa10036.a example-code
 clean:
 	-rm ./libs/libcfa10036.a
 	-rm ./build/display.o
-	-rm ./build/dowtemp.o
+	-rm ./build/w1temp.o
 	-rm ./build/i2c.o
 	-rm ./build/gpio.o
 	-rm ./build/spi.o

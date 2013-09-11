@@ -66,6 +66,5 @@ int main(void)
 
     loopall();
     cleanup();
-    w1temp_close();
     return 0;
 }

@@ -26,6 +26,7 @@
 #include <sys/ioctl.h>
 #include <stdlib.h>
 #include <unistd.h>
+
 /* -- i2c.h -- */
 
 
@@ -159,7 +160,7 @@ struct i2c_rdwr_ioctl_data
 };
 
 
-inline __s32 i2c_smbus_access(int file, char read_write, __u8 command,
+extern inline __s32 i2c_smbus_access(int file, char read_write, __u8 command,
                               int size, union i2c_smbus_data *data)
 {
     struct i2c_smbus_ioctl_data args;
@@ -173,12 +174,12 @@ inline __s32 i2c_smbus_access(int file, char read_write, __u8 command,
 }
 
 
-inline __s32 i2c_smbus_write_quick(int file, __u8 value)
+extern inline __s32 i2c_smbus_write_quick(int file, __u8 value)
 {
     return i2c_smbus_access(file, value, 0, I2C_SMBUS_QUICK, NULL);
 }
 
-inline __s32 i2c_smbus_read_byte(int file)
+extern inline __s32 i2c_smbus_read_byte(int file)
 {
     union i2c_smbus_data data;
     if (i2c_smbus_access(file, I2C_SMBUS_READ, 0, I2C_SMBUS_BYTE, &data))
@@ -187,13 +188,13 @@ inline __s32 i2c_smbus_read_byte(int file)
         return 0x0FF & data.byte;
 }
 
-inline __s32 i2c_smbus_write_byte(int file, __u8 value)
+extern inline __s32 i2c_smbus_write_byte(int file, __u8 value)
 {
     return i2c_smbus_access(file, I2C_SMBUS_WRITE, value,
                             I2C_SMBUS_BYTE, NULL);
 }
 
-inline __s32 i2c_smbus_read_byte_data(int file, __u8 command)
+extern inline __s32 i2c_smbus_read_byte_data(int file, __u8 command)
 {
     union i2c_smbus_data data;
     if (i2c_smbus_access(file, I2C_SMBUS_READ, command,
@@ -203,7 +204,7 @@ inline __s32 i2c_smbus_read_byte_data(int file, __u8 command)
         return 0x0FF & data.byte;
 }
 
-inline __s32 i2c_smbus_write_byte_data(int file, __u8 command,
+extern inline __s32 i2c_smbus_write_byte_data(int file, __u8 command,
                                        __u8 value)
 {
     union i2c_smbus_data data;
@@ -212,7 +213,7 @@ inline __s32 i2c_smbus_write_byte_data(int file, __u8 command,
                             I2C_SMBUS_BYTE_DATA, &data);
 }
 
-inline __s32 i2c_smbus_read_word_data(int file, __u8 command)
+extern inline __s32 i2c_smbus_read_word_data(int file, __u8 command)
 {
     union i2c_smbus_data data;
     if (i2c_smbus_access(file, I2C_SMBUS_READ, command,
@@ -222,7 +223,7 @@ inline __s32 i2c_smbus_read_word_data(int file, __u8 command)
         return 0x0FFFF & data.word;
 }
 
-inline __s32 i2c_smbus_write_word_data(int file, __u8 command,
+extern inline __s32 i2c_smbus_write_word_data(int file, __u8 command,
                                        __u16 value)
 {
     union i2c_smbus_data data;
@@ -231,7 +232,7 @@ inline __s32 i2c_smbus_write_word_data(int file, __u8 command,
                             I2C_SMBUS_WORD_DATA, &data);
 }
 
-inline __s32 i2c_smbus_process_call(int file, __u8 command, __u16 value)
+extern inline __s32 i2c_smbus_process_call(int file, __u8 command, __u16 value)
 {
     union i2c_smbus_data data;
     data.word = value;
@@ -244,7 +245,7 @@ inline __s32 i2c_smbus_process_call(int file, __u8 command, __u16 value)
 
 
 /* Returns the number of read bytes */
-inline __s32 i2c_smbus_read_block_data(int file, __u8 command,
+extern inline __s32 i2c_smbus_read_block_data(int file, __u8 command,
                                        __u8 *values)
 {
     union i2c_smbus_data data;
@@ -260,7 +261,7 @@ inline __s32 i2c_smbus_read_block_data(int file, __u8 command,
     }
 }
 
-inline __s32 i2c_smbus_write_block_data(int file, __u8 command,
+extern inline __s32 i2c_smbus_write_block_data(int file, __u8 command,
                                         __u8 length, const __u8 *values)
 {
     union i2c_smbus_data data;
@@ -278,7 +279,7 @@ inline __s32 i2c_smbus_write_block_data(int file, __u8 command,
 /* Until kernel 2.6.22, the length is hardcoded to 32 bytes. If you
    ask for less than 32 bytes, your code will only work with kernels
    2.6.23 and later. */
-inline __s32 i2c_smbus_read_i2c_block_data(int file, __u8 command,
+extern inline __s32 i2c_smbus_read_i2c_block_data(int file, __u8 command,
         __u8 length, __u8 *values)
 {
     union i2c_smbus_data data;
@@ -299,7 +300,7 @@ inline __s32 i2c_smbus_read_i2c_block_data(int file, __u8 command,
     }
 }
 
-inline __s32 i2c_smbus_write_i2c_block_data(int file, __u8 command,
+extern inline __s32 i2c_smbus_write_i2c_block_data(int file, __u8 command,
         __u8 length,
         const __u8 *values)
 {
@@ -315,7 +316,7 @@ inline __s32 i2c_smbus_write_i2c_block_data(int file, __u8 command,
 }
 
 /* Returns the number of read bytes */
-inline __s32 i2c_smbus_block_process_call(int file, __u8 command,
+extern inline __s32 i2c_smbus_block_process_call(int file, __u8 command,
         __u8 length, __u8 *values)
 {
     union i2c_smbus_data data;

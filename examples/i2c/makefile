@@ -1,6 +1,6 @@
 CC=arm-none-linux-gnueabi-gcc
 LD=arm-none-linux-gnueabi-gcc
-CFLAGS=-Wall
+CFLAGS=-Wall -I..\..\includes
 LDFLAGS=-L..\..\libs -lcfa10036
 
 i2c:i2c.o

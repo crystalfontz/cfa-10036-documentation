@@ -64,7 +64,7 @@ int display_fill(unsigned char byte)
   * @param {int} col The column to start writing at
   * @param {char*} string The string to print to the display
  **/
-int display_write(int col, int row, char *string)
+int display_writebuffer(int col, int row, char *string)
 {
     row *= 8;
     int i;
