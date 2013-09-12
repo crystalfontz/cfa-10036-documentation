@@ -10,7 +10,7 @@ GPIO
 	int gpio_read(unsigned int portnum);
 	int gpio_close();
 
-Display
+Display ( CFA10036 OLED )
 -------------
 	int display_send();
 	int display_fill(unsigned char byte);
