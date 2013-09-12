@@ -2,7 +2,7 @@
 #define display_h
 
 /*                      Display library for the cfa-10036
- *
+ *				It's Jim Wall's Code
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 or later
  * as published by the Free Software Foundation.

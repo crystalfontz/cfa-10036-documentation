@@ -44,3 +44,4 @@ example-code:
 	$(MAKE) -C examples/oled
 	$(MAKE) -C examples/onewire
 	$(MAKE) -C examples/web-interface
+	$(MAKE) -C examples/spi

@@ -12,72 +12,98 @@
 #include <spi.h>
 #include <unistd.h>
 
-static char *device;
-static uint8_t mode = -1;
-static uint8_t bits = -1;
-static uint32_t speed = -1;
-static int fd;
-
-int spi_init(int devNo, int bpw, int speedl)
+struct _spi
 {
-    if (devNo < 0 || bpw < 1 || speedl < 0)
-        return SPI_INVALID_PARAMETER;
+    char *device;
+    uint8_t mode;
+    uint8_t bits;
+    uint32_t speed;
+    int fd;
+};
 
-    mode = 0;
+SPIDEV *spi_init(int dev_no, int bpw, int speedl)
+{
+    if (dev_no < 0 || bpw < 1 || speedl < 0)
+    {
+        perror("SPI_INVALID_PARAMETER");
+        return NULL;
+    }
+
+    SPIDEV *s = malloc(sizeof(SPIDEV));
+
+    s->mode = 0;
     static char k[128];
     int ret = 0;
-    speed = speedl;
-    bits = bpw;
+    s->speed = speedl;
+    s->bits = bpw;
     memset(k, 0, 128);
 
-    sprintf(k, "/dev/spidev32766.%i", devNo);
+    sprintf(k, "/dev/spidev32766.%i", dev_no);
     if (access(k, F_OK) != -1)
-        device = k;
+    {
+        s->device = k;
+    }
     else
-        return SPI_INVALID_DEVICE;
+    {
+        perror("SPI_INVALID_DEVICE");
+        return NULL;
+    }
 
-    fd = open(device, O_RDWR);
-    if (fd < 0)
-        return SPI_DEVICE_ACCESS_ERROR;
-
+    s->fd = open(s->device, O_RDWR);
+    if (s->fd < 0)
+    {
+        perror("SPI_DEVICE_ACCESS_ERROR");
+        return NULL;
+    }
     // Configure SPI Mode
     //mode |= SPI_3WIRE;
-    ret = ioctl(fd, SPI_IOC_WR_MODE, &mode);
+    ret = ioctl(s->fd, SPI_IOC_WR_MODE, &(s->mode));
     if (ret == -1)
-        return SPI_MODE_SET_ERROR;
+    {
+        perror("SPI_MODE_SET_ERROR");
+        return NULL;
+    }
 
     /*
      * bits per word
      */
-    ret = ioctl(fd, SPI_IOC_WR_BITS_PER_WORD, &bits);
+    ret = ioctl(s->fd, SPI_IOC_WR_BITS_PER_WORD, &(s->bits));
     if (ret == -1)
-        return SPI_BITS_SET_ERROR;
+    {
+        perror("SPI_BITS_SET_ERROR");
+        return NULL;
+    }
 
     /*
      * max speed hz
      */
-    ret = ioctl(fd, SPI_IOC_WR_MAX_SPEED_HZ, &speed);
+    ret = ioctl(s->fd, SPI_IOC_WR_MAX_SPEED_HZ, &(s->speed));
     if (ret == -1)
-        return SPI_SPEED_SET_ERROR;
+    {
+        perror("SPI_SPEED_SET_ERROR");
+        return NULL;
+    }
 
-    return 0;
+    return s;
 }
 
-int spi_write_word(void *data)
+int spi_write_word(SPIDEV *s, void *data)
 {
-    int i = write(fd, data, ceil(bits / 8.0));
+    int i = write(s->fd, data, ceil(s->bits / 8.0));
     if (i == -1)
+    {
         return SPI_WRITE_ERROR;
+    }
 
     return 0;
 }
 
-int spi_write_chunk(void *data, int count)
+int spi_write_chunk(SPIDEV *s, void *data, int count)
 {
-    int byte_size = ceil(bits / 8.0);
+    int byte_size = ceil(s->bits / 8.0);
     for (int i = 0; i < count; i++)
     {
-        int j = spi_write_word(data + (byte_size * i));
+        int j = spi_write_word(s,data + (byte_size * i));
         if (j == -1)
             return SPI_WRITE_ERROR;
     }

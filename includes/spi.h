@@ -9,8 +9,11 @@
 #define SPI_SPEED_SET_ERROR     (-6)
 #define SPI_WRITE_ERROR         (-7)
 
-int spi_init(int devno, int bpw, int speed);
-int spi_write_word(void *data);
-int spi_write_chunk(void *data, int count);
+typedef struct _spi SPIDEV;
+
+SPIDEV* spi_init(int devno, int bpw, int speed);
+int spi_write_word(SPIDEV* spi_device,void *data);
+int spi_write_chunk(SPIDEV* spi_device,void *data, int count);
+
 
 #endif

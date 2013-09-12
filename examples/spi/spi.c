@@ -4,10 +4,15 @@
 
 int main(int argc, char *argv[])
 {
-    spi_init(1, 8, 125000);
+    SPIDEV *s = spi_init(1, 8, 125000);
 
-    char *hello_world = "Hello World";
-    spi_write_chunk(hello_world, strlen(hello_world));
+    char *hello_world = "\x0cHello World";
+    spi_write_chunk(s, hello_world, strlen(hello_world));
+
+    sleep(2);
+
+    unsigned char c = 0x1F;
+    spi_write_word(s,&c);
 
     return 0;
 }
