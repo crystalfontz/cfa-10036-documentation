@@ -89,7 +89,8 @@ SPIDEV *spi_init(int dev_no, int bpw, int speedl)
 
 int spi_write_word(SPIDEV *s, void *data)
 {
-    int i = write(s->fd, data, ceil(s->bits / 8.0));
+    int bit_count = (s->bits+0x07)>>3;
+    int i = write(s->fd, data, bit_count);
     if (i == -1)
     {
         return SPI_WRITE_ERROR;
@@ -100,7 +101,7 @@ int spi_write_word(SPIDEV *s, void *data)
 
 int spi_write_chunk(SPIDEV *s, void *data, int count)
 {
-    int byte_size = ceil(s->bits / 8.0);
+    int byte_size = (s->bits+0x07)>>3;
     for (int i = 0; i < count; i++)
     {
         int j = spi_write_word(s,data + (byte_size * i));

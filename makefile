@@ -33,9 +33,12 @@ clean:
 	-rm ./build/i2c.o
 	-rm ./build/gpio.o
 	-rm ./build/spi.o
+	-rm ./build/ -r
+	-mkdir build
 
 clean-lib:
-	-rm ./libs/libcfa10036.a
+	-rm ./libs/ -r
+	-mkdir libs
 
 example-code: 
 	$(MAKE) -C examples/gpio
