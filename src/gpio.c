@@ -35,7 +35,6 @@ static char *itoa(int val)
     return &buf[i + 1];
 }
 
-
 /**
   * Initializes the library by exporting all of the gpio
  **/
