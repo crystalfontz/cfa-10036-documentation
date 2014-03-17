@@ -25,13 +25,13 @@ static FILE *pins_value[PINCOUNT];
 static char *itoa(int val)
 {
     static char buf[32] = {0};
-    int base = 10;
-
     int i = 30;
-
-    for (; val && i ; --i, val /= base)
+    int base = 10;
+    do {
         buf[i] = "0123456789abcdef"[val % base];
-
+        i--;
+        val /= base;
+    } while (val && i);
     return &buf[i + 1];
 }
 
